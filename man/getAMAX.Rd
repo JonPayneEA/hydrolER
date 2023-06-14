@@ -30,9 +30,9 @@ getAMAX(x, ...)
 Extract annual maximum peak data from various data sources.
 }
 \examples{
-# getAMAX(Flows = Buildwas$Value, Date = Buildwas$DateTime)
-# getAMAX(Buildwas_Analysis)
-# getAMAX(Buildwas)
-# rnrfa::get_ts(id = 2001, type = 'amax-flow') \%>\% getAMAX()
-# getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+getAMAX(Flows = Buildwas$Value, Date = Buildwas$DateTime)
+getAMAX(Buildwas_Analysis)
+getAMAX(Buildwas)
+rnrfa::get_ts(id = 2001, type = 'amax-flow') \%>\% getAMAX()
+getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
 }
