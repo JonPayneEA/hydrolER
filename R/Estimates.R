@@ -14,10 +14,10 @@
 #' @export
 #'
 #' @examples
-#' #Estimates(GEVParams(buildwas), RP = c(100,200))
-#' #Estimates(GumbelParams(buildwas))
-#' #Estimates(GenLogParams(buildwas_max), q = 650)
-#' #Estimates(GenParetoParams(buildwas), ppy =2)
+#' Estimates(GEVParams(buildwas), RP = c(100,200))
+#' Estimates(GumbelParams(buildwas))
+#' Estimates(GenLogParams(buildwas_max), q = 650)
+#' Estimates(GenParetoParams(buildwas), ppy =2)
 Estimates <- function(x, q, RP, ppy, ...){
   UseMethod('Estimates', x)
 }

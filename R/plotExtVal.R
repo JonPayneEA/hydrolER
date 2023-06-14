@@ -8,8 +8,6 @@
 #' @param URBEXT2000 Used in the growth function equations
 #' @param DeUrb Used in the growth function equations
 #' @param ... Additional parameters as required
-#' 
-#' @import ggplot2
 #'
 #' @return
 #' @export
@@ -49,9 +47,9 @@ if('HydroAMAX' %in% class(x)){
     ylab <- expression(Flow ~ m^3 ~ s^-1)
     intercept <- qmed
   }
-  point <- data.table::data.table(logRedVarObs, incAMAX)
-  dt <- data.table::data.table(logRedVar, ss)
-  dtm <- data.table::melt.data.table(dt, id.vars = 1:2)
+  point <- data.table(logRedVarObs, incAMAX)
+  dt <- data.table(logRedVar, ss)
+  dtm <- melt.data.table(dt, id.vars = 1:2)
   setnames(dtm, old = 'variable', new = 'Distribution')
   if(!is.null(filter)){
     filts_match <- paste0(filter, collapse = '|')

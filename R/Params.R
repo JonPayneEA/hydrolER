@@ -129,7 +129,7 @@ Params <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   Gumbel <- GumbelParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   GenLog <- GenLogParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   GenPareto <- GenParetoParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
-  dt <- data.table::data.table(Parameter = rownames(GEV),
+  dt <- data.table(Parameter = rownames(GEV),
                    GEV,
                    Gumbel,
                    GenLog,

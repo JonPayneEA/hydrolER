@@ -24,19 +24,19 @@ getVAMAX.HydroAggssum <- function(x){
   # Hourly max
   date <- vapply(strsplit(x$Hourly$Hourly,' '),
                  `[`, 1, FUN.VALUE = character(1))
-  yearHydro <- riskyData::HydroYearDay(as.Date(date))
-  hourly <- data.table::data.table(Volume = x$Hourly$Hourly_Sum, yearHydro)
+  yearHydro <- HydroYearDay(as.Date(date))
+  hourly <- data.table(Volume = x$Hourly$Hourly_Sum, yearHydro)
   VAMAX_Hourly <- hourly[, .(VAMAX_Hourly = max(Volume, na.rm = TRUE)), HydrologicalYear]
 
   # Daily
-  yearHydro <- riskyData::HydroYearDay(x$Daily$Daily)
-  daily <- data.table::data.table(Volume = x$Daily$Daily_Sum, yearHydro)
+  yearHydro <- HydroYearDay(x$Daily$Daily)
+  daily <- data.table(Volume = x$Daily$Daily_Sum, yearHydro)
   VAMAX_Daily <- daily[, .(VAMAX_Daily = max(Volume, na.rm = TRUE)), HydrologicalYear]
 
   # Monthly
   date <- paste(gsub(' ', '-', x$Monthly$Year_Month), '-01', sep = '')
-  yearHydro <- riskyData::HydroYearDay(as.Date(date))
-  monthly <- data.table::data.table(Volume = x$Monthly$Monthly_Sum, yearHydro)
+  yearHydro <- HydroYearDay(as.Date(date))
+  monthly <- data.table(Volume = x$Monthly$Monthly_Sum, yearHydro)
   VAMAX_Monthly <- monthly[, .(VAMAX_Monthly = max(Volume, na.rm = TRUE)), HydrologicalYear]
 
   # Calendar year
@@ -51,7 +51,7 @@ getVAMAX.HydroAggssum <- function(x){
   colnames(VAMAX_Rolls) <- gsub('Roll', 'VAMAX', colnames(dt_clean))
 
   # Compile
-  dt <- data.table::data.table(VAMAX_Hourly, VAMAX_Daily[,-1], VAMAX_Monthly[,-1],
+  dt <- data.table(VAMAX_Hourly, VAMAX_Daily[,-1], VAMAX_Monthly[,-1],
                    VAMAX_Calendar[,-1], VAMAX_HydroYear[,-1],VAMAX_Rolls[,-1])
   class(dt) <- append(class(dt), 'HydroVAMAX')
   return(dt)
@@ -63,7 +63,7 @@ getVAMAX.flowLoad <- function(x, interval = 0.25, rolling_aggregations = c(1, 2,
   if('Volume' %in% colnames(x$GaugeData) == FALSE){
     asVol(x)
   }
-  hydroAgg <- riskyData::hydroAggregate(x,
+  hydroAgg <- hydroAggregate(x,
                        interval = interval,
                        rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120),
                        method = 'sum')

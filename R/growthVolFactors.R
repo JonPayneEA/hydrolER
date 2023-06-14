@@ -28,7 +28,7 @@ growthVolGEV.vLs <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 =
     lst[[i]] <- gf
   }
   dt <- t(do.call('rbind', lst))
-  dt <- data.table::as.data.table(dt)
+  dt <- as.data.table(dt)
   colnames(dt) <- x$Data
   dt <- data.table(Return_Period = RP, dt)
   return(dt)
@@ -61,9 +61,9 @@ growthVolGumbel.vLs <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT200
     lst[[i]] <- gf
   }
   dt <- t(do.call('rbind', lst))
-  dt <- data.table::as.data.table(dt)
+  dt <- as.data.table(dt)
   colnames(dt) <- x$Data
-  dt <- data.table::data.table(Return_Period = RP, dt)
+  dt <- data.table(Return_Period = RP, dt)
   return(dt)
 }
 
@@ -95,9 +95,9 @@ growthVolGenLog.vLs <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT200
     lst[[i]] <- gf
   }
   dt <- t(do.call('rbind', lst))
-  dt <- data.table::as.data.table(dt)
+  dt <- as.data.table(dt)
   colnames(dt) <- x$Data
-  dt <- data.table::data.table(Return_Period = RP, dt)
+  dt <- data.table(Return_Period = RP, dt)
   return(dt)
 }
 
@@ -131,9 +131,9 @@ growthVolGenPareto.vLs <- function(x, RP =  c(2,4,10,25,50,100,200,1000), ppy = 
     lst[[i]] <- gf
   }
   dt <- t(do.call('rbind', lst))
-  dt <- data.table::as.data.table(dt)
+  dt <- as.data.table(dt)
   colnames(dt) <- x$Data
-  dt <- data.table::data.table(Return_Period = RP, dt)
+  dt <- data.table(Return_Period = RP, dt)
   return(dt)
 }
 
@@ -158,7 +158,7 @@ growthVolFactors <- function(x, RP = c(2,4,10,25,50,100,200,1000), ppy = 1, URBE
     GenLog <- growthVolGenLog(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
     GenPareto <- growthVolGenPareto(x, RP = RP, ppy = ppy, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
     Distribution <- rep(c('GEV','Gumbel','GenLog','GenPareto'), each = length(RP))
-    dt <- data.table::data.table(Distribution, rbind(GEV, Gumbel, GenLog, GenPareto))
+    dt <- data.table(Distribution, rbind(GEV, Gumbel, GenLog, GenPareto))
   # dt <- data.table(Return = RP,
   #                  GEV = GEV$Growth_Factor,
   #                  Gumbel = Gumbel$Growth_Factor,

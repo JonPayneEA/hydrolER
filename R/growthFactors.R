@@ -22,7 +22,7 @@ growthGEV <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, 
   Bgev <- (kgev * Ls$LCV) / (Ls$LCV * (gamma(1 + kgev) - (log(2))^kgev) +
                                gamma(1 + kgev) * (1 - 2^-kgev))
   gf <- 1 + (Bgev / kgev) * (log(2)^kgev - (log(RP / (RP - 1)))^kgev)
-  df <- data.table::data.table(Return_Period = RP, Growth_Factor = gf)
+  df <- data.table(Return_Period = RP, Growth_Factor = gf)
   return(df)
 }
 
@@ -47,7 +47,7 @@ growthGumbel <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NUL
   }
   B <- Ls$LCV/(log(2)-Ls$LCV*(0.5772+log(log(2))))
   gf <- 1+B*(log(log(2))-log(-log(1-(1/RP))))
-  df <- data.table::data.table(Return_Period = RP, Growth_Factor = gf)
+  df <- data.table(Return_Period = RP, Growth_Factor = gf)
   return(df)
 }
 
@@ -73,7 +73,7 @@ growthGenLog <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NUL
   k <- -Ls$LSkew
   B <- Ls$LCV * k * sin((pi) * k) / (k * pi * (k + Ls$LCV) - Ls$LCV * sin((pi) * k))
   gf <- 1 + (B/k) * (1-(RP-1)^Ls$LSkew)
-  df <- data.table::data.table(Return_Period = RP, Growth_Factor = gf)
+  df <- data.table(Return_Period = RP, Growth_Factor = gf)
   return(df)
 }
 
@@ -101,7 +101,7 @@ growthGenPareto <- function(x, RP =  c(2,4,10,25,50,100,200,1000), ppy = 1, URBE
   Bgp <- (Ls$LCV*k*(1+k)*(2+k))/(k-Ls$LCV*(2+k)*(2^-k*(1+k)-1))
   RPppy <- 1/((1/RP)/ppy)
   gf <- 1 + (Bgp/k) *((2^-k)-(1-(1-(1/RPppy)))^k)
-  df <- data.table::data.table(Return_Period = RP, Growth_Factor = gf)
+  df <- data.table(Return_Period = RP, Growth_Factor = gf)
   return(df)
 }
 
@@ -126,7 +126,7 @@ growthFactors <- function(x, RP = c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT2
   Gumbel <- growthGumbel(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
   GenLog <- growthGenLog(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
   GenPareto <- growthGenPareto(x, RP = RP, ppy = ppy, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
-  dt <- data.table::data.table(Return = RP,
+  dt <- data.table(Return = RP,
                    GEV = GEV$Growth_Factor,
                    Gumbel = Gumbel$Growth_Factor,
                    GenLog = GenLog$Growth_Factor,

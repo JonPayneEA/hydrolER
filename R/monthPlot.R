@@ -10,8 +10,6 @@
 #' @param snip Used to determine where to cut time series using headTail function
 #' @param ... Additional parameters as required
 #'
-#' @import ggplot2
-#'
 #' @return
 #' @export
 #'

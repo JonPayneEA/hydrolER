@@ -61,10 +61,10 @@ vLs <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
     LCV <- urbAdj(LCV, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
     LSkew <- urbAdj(LSkew, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
-  dt <- data.table::data.table(t(L1(x)), t(L2(x)), t(L3(x)), t(L4(x)), t(LCV(x)), t(LCA(x)),
+  dt <- data.table(t(L1(x)), t(L2(x)), t(L3(x)), t(L4(x)), t(LCV(x)), t(LCA(x)),
                   t(LKur(x)), t(LSKEW(x)), t(VMED(x)))
   colnames(dt) <- c('L1', 'L2', 'L3', 'L4', 'LCV', 'LCA', 'LKUR', 'LSkew', 'VMED')
-  dt_m <- data.table::data.table(Data = colnames(x[,-1]), dt)
+  dt_m <- data.table(Data = colnames(x[,-1]), dt)
   class(dt_m) <- append(class(x)[-3], 'vLs')
   return(dt_m)
 }

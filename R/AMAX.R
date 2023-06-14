@@ -9,11 +9,11 @@
 #' @export
 #'
 #' @examples
-#' # getAMAX(Flows = Buildwas$Value, Date = Buildwas$DateTime)
-#' # getAMAX(Buildwas_Analysis)
-#' # getAMAX(Buildwas)
-#' # rnrfa::get_ts(id = 2001, type = 'amax-flow') %>% getAMAX()
-#' # getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+#' getAMAX(Flows = Buildwas$Value, Date = Buildwas$DateTime)
+#' getAMAX(Buildwas_Analysis)
+#' getAMAX(Buildwas)
+#' rnrfa::get_ts(id = 2001, type = 'amax-flow') %>% getAMAX()
+#' getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
 getAMAX <- function(x, ...) {
   UseMethod('getAMAX', x)
 }
@@ -25,8 +25,8 @@ getAMAX.numeric <- function(x = flow, Date = date, ...){
     Date <- as.Date(Date)
   }
   hydro_year <- 'oct_us_gb'
-  hydroData <- riskyData::hydroYearDay(Date, hy_cal = hydro_year)
-  dt <- data.table::data.table(Date, hydroData, x)
+  hydroData <- hydroYearDay(Date, hy_cal = hydro_year)
+  dt <- data.table(Date, hydroData, x)
   AMAX <- dt[, .(Hydro_year_Max = max(x, na.rm = TRUE)), HydrologicalYear]
   class(AMAX) <- append(class(x), 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
@@ -36,7 +36,7 @@ getAMAX.numeric <- function(x = flow, Date = date, ...){
 #' @rdname getAMAX
 #' @export
 getAMAX.HydroAggsmax <- function(x, ...){
-  AMAX <- data.table::data.table(Year = x$Hydro_year$HydrologicalYear, AMAX = x$Hydro_year$Hydro_year_Max)
+  AMAX <- data.table(Year = x$Hydro_year$HydrologicalYear, AMAX = x$Hydro_year$Hydro_year_Max)
   class(AMAX) <- append(class(AMAX), 'HydroAMAX')
   #colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)
@@ -58,7 +58,7 @@ getAMAX.zoo <- function(x, ...){
   if(is(AMAX$Date, 'Date') == FALSE){ # To account for numerous classes
     AMAX$Date <- as.Date(AMAX$Date)
   }
-  AMAX$Date <- riskyData::HydroYearDay(AMAX$Date, hy_cal = 'oct_us_gb')[1]
+  AMAX$Date <- HydroYearDay(AMAX$Date, hy_cal = 'oct_us_gb')[1]
   class(AMAX) <- append(class(AMAX), 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
   AMAX <- AMAX[, (AMAX = max(AMAX, na.rm = TRUE)), Year]
